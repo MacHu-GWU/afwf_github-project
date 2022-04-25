@@ -1,0 +1,7 @@
+[
+    {"id": "amzn", "name": "Amazon"},
+    {"id": "apple", "name": "Apple"},
+    {"id": "facebook", "name": "Meta"},
+    {"id": "google", "name": "Google"},
+    {"id": "microsoft", "name": "Microsoft"}
+]
