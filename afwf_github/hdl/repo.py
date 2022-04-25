@@ -19,7 +19,7 @@ class Handler(afwf.Handler):
         sf = afwf.ScriptFilter()
         if not query.strip():
             sf.items.append(afwf.Item(
-                title="Type to search repository ...",
+                title="Type to search GitHub repository ...",
             ))
             return sf
 

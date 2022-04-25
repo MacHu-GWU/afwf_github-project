@@ -13,11 +13,6 @@ from diskcache import Cache
 from .paths import path_default_token
 from .cache import cache, DEFAULT_EXPIRE
 
-if not path_default_token.exists():
-    raise FileNotFoundError
-
-gh = Github(path_default_token.read_text().strip())
-
 
 class CacheKeys:
     user = "user"
@@ -26,6 +21,11 @@ class CacheKeys:
 
 
 def refresh_cache(cache: Cache = cache):
+    if not path_default_token.exists():
+        raise FileNotFoundError
+
+    gh = Github(path_default_token.read_text().strip())
+
     user = gh.get_user()
     user_id = user.html_url.split("/")[-1]
     user_name = user.name

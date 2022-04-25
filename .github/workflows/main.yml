@@ -43,5 +43,7 @@ jobs:
           pip install -r requirements-test.txt
           pip install -e .
       - name: "Run pytest"
-
-        run: "python -m pytest tests --cov=afwf_github"
+        run: |
+          mkdir ~/.alfred-afwf_github
+          echo "$(which python)" > ~/.alfred-afwf_github/python_interpreter
+          python -m pytest tests --cov=afwf_github

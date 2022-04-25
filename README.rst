@@ -52,22 +52,27 @@
 Welcome to ``afwf_github`` Documentation
 ==============================================================================
 
-Documentation for ``afwf_github``.
-
-
-.. _install:
 
 Install
 ------------------------------------------------------------------------------
+1. Make sure you have `Alfred 4 + <https://www.alfredapp.com/>`_ installed and bought the `Power Pack <https://www.alfredapp.com/shop/>`_.
+2. Go to `Release <https://github.com/MacHu-GWU/afwf_github-project/releases>`_, download the latest release.
+3. Double click the file to install.
+4. Prepare your GitHub Personal Access Token: go to https://github.com/settings/tokens, create a new token, make sure you checked ``repo -> public_repo``, ``admin:org -> read:org``, ``admin:enterprise -> read:enterprise`` so the workflow can get your repo name and url information.
+5. Setup the GitHub personal access token file and python interpreter config file. So the workflow knows where to read the token and which python to use.
 
-``afwf_github`` is released on PyPI, so all you need is:
+.. code-block:: bash
 
-.. code-block:: console
+    # Create data directory
+    mkdir ~/.alfred-afwf_github
 
-    $ pip install afwf_github
+    # Create the GitHub Personal Access Token file
+    # replace ${GITHUB_PERSONAL_ACCESS_TOKEN} with your token
+    echo "${GITHUB_PERSONAL_ACCESS_TOKEN}" > ~/.alfred-afwf_github/default
 
-To upgrade to latest version:
-
-.. code-block:: console
-
-    $ pip install --upgrade afwf_github
+    # Create the Python Interpreter file
+    # Now it support Python3.7+ only
+    # If you are using python3, you can use ``which python3`` command to find
+    # the full path of Python interpreter
+    # replace ${PYTHON_INTERPRETER_PATH} with the path
+    echo "${PYTHON_INTERPRETER_PATH}" > ~/.alfred-afwf_github/python_interpreter
