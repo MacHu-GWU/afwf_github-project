@@ -20,11 +20,15 @@ class CacheKeys:
     repos = "repos"
 
 
+def create_gh_client():
+    return Github(path_default_token.read_text().strip())
+
+
 def refresh_cache(cache: Cache = cache):
     if not path_default_token.exists():
         raise FileNotFoundError
 
-    gh = Github(path_default_token.read_text().strip())
+    gh = create_gh_client()
 
     user = gh.get_user()
     user_id = user.html_url.split("/")[-1]
