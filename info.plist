@@ -70,6 +70,29 @@
 				<false/>
 			</dict>
 		</array>
+		<key>E7686ED6-4375-40B4-8C23-9EC1B86534D6</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>510716FA-3ADB-48FD-963C-9B0125F7C8AA</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>D56DB2FE-C414-4701-A4AC-91209ACDD738</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>FC70DA22-C9D2-4A55-A6BD-58FE32EEFE2D</key>
 		<array>
 			<dict>
@@ -300,6 +323,55 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>2</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>keyword</key>
+				<string>gh-view-in-browser</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string>please wait ...</string>
+				<key>script</key>
+				<string>/Users/sanhehu/.pyenv/versions/3.8.11/bin/python main.py 'view_in_browser {query}'</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>View file in web browser</string>
+				<key>title</key>
+				<string>gh-view-in-browser</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>E7686ED6-4375-40B4-8C23-9EC1B86534D6</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>inputstring</key>
 				<string>{var:terminal_command}</string>
 				<key>matchcasesensitive</key>
@@ -318,7 +390,7 @@
 		</dict>
 	</array>
 	<key>readme</key>
-	<string>AWS S3 Alfred Workflow</string>
+	<string>See full documentation at https://github.com/MacHu-GWU/afwf_github-project</string>
 	<key>uidata</key>
 	<dict>
 		<key>0AFE0139-F62F-454F-B08B-439294D1B6BC</key>
@@ -362,6 +434,13 @@
 			<integer>565</integer>
 			<key>ypos</key>
 			<integer>255</integer>
+		</dict>
+		<key>E7686ED6-4375-40B4-8C23-9EC1B86534D6</key>
+		<dict>
+			<key>xpos</key>
+			<integer>10</integer>
+			<key>ypos</key>
+			<integer>330</integer>
 		</dict>
 		<key>F35E20DC-2024-464A-9530-11744155BCE0</key>
 		<dict>
