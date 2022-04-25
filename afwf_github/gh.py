@@ -21,10 +21,15 @@ class CacheKeys:
 
 
 def create_gh_client():
+    """
+    Create github client with default token.
+    """
     return Github(path_default_token.read_text().strip())
 
 
-def refresh_cache(cache: Cache = cache):
+def refresh_cache(cache: Cache = cache): # pragma: no cover
+    """
+    """
     if not path_default_token.exists():
         raise FileNotFoundError
 
@@ -41,7 +46,7 @@ def refresh_cache(cache: Cache = cache):
         accounts.append(dict(id=account_id, name=account_name))
 
     repos = list()
-    for repo in user.get_repos():
+    for repo in user.get_repos(visibility="all"):
         account_name = repo.full_name.split("/")[0]
         repo_name = repo.name
         repo_description = repo.description

@@ -27,7 +27,7 @@ Install
 1. Make sure you have `Alfred 4 + <https://www.alfredapp.com/>`_ installed and bought the `Power Pack <https://www.alfredapp.com/shop/>`_.
 2. Go to `Release <https://github.com/MacHu-GWU/afwf_github-project/releases>`_, download the latest release.
 3. Double click the file to install.
-4. Prepare your GitHub Personal Access Token: go to https://github.com/settings/tokens, create a new token, make sure you checked ``repo -> public_repo``, ``admin:org -> read:org``, ``admin:enterprise -> read:enterprise`` so the workflow can get your repo name and url information.
+4. Prepare your GitHub Personal Access Token: go to https://github.com/settings/tokens, create a new token, make sure you checked ``repo -> public_repo``, ``admin:org -> read:org``, ``admin:enterprise -> read:enterprise`` so the workflow can get your public repo name and url information. If you want to get your private repo as well, you should check ``repo (Full control of private repositories)``.
 5. Setup the GitHub personal access token file and python interpreter config file. So the workflow knows where to read the token and which python to use.
 
 .. code-block:: bash

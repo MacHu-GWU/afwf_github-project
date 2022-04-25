@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Full text search helpers
+Full text search helpers.
 """
 
 import shutil
@@ -10,8 +10,7 @@ from typing import List
 from pathlib_mate import Path
 from diskcache import Cache
 from whoosh.index import open_dir, create_in, exists_in, FileIndex
-from whoosh.fields import SchemaClass, TEXT, KEYWORD, NGRAM, STORED
-from whoosh.query import And, Or, Term, MultiTerm
+from whoosh.fields import SchemaClass, KEYWORD, NGRAM, STORED
 from whoosh.qparser import MultifieldParser
 
 from .paths import dir_org_index, dir_repo_index
@@ -46,6 +45,11 @@ class OrganizationSchema(SchemaClass):
 
 
 class RepoSchema(SchemaClass):
+    """
+    GitHub repo can be search by repo name in keyword or ngram and full name.
+
+    fullname is the ``${Account}/${Repo}``
+    """
     acc = STORED()
     repo = STORED()
     desc = STORED()
@@ -62,6 +66,9 @@ def rebuild_org_index(
     dir_index: Path = dir_org_index,
     cache: Cache = cache,
 ):
+    """
+    Read data from cache, insert into whoosh index.
+    """
     index = get_index(dir_index, org_schema, reset=True)
     accounts = get_accounts(cache)
     with index.writer(limitmb=128) as writer:
@@ -82,6 +89,9 @@ def rebuild_repo_index(
     dir_index: Path = dir_repo_index,
     cache: Cache = cache,
 ):
+    """
+    Read data from cache, insert into whoosh index.
+    """
     index = get_index(dir_index, repo_schema, reset=True)
     repos = get_repos(cache)
     with index.writer(limitmb=128) as writer:

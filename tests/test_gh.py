@@ -21,10 +21,10 @@ def test_refresh_cache():
     if IS_LOCAL:
         from rich import print as rprint
 
-        refresh_cache()
-        get_user()
-        get_accounts()
-        get_repos()
+        # refresh_cache()
+        # rprint(get_user())
+        # rprint(get_accounts())
+        # rprint(get_repos())
         pass
 
 
