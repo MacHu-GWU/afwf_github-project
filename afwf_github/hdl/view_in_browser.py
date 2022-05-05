@@ -31,9 +31,9 @@ def convert_remote_origin_url_to_web_url(url: str) -> str:
     endpoint = parse_result.netloc.split("@")[-1]
     if ":" in endpoint:
         domain, port = endpoint.split(":", 1)
+        endpoint = domain
         if domain in ["github.com", "gitlab.com"]:
             path = f"{port}/{path}"
-            endpoint = domain
 
     new_url = f"https://{endpoint}/{path}"
     return new_url
@@ -42,7 +42,26 @@ def convert_remote_origin_url_to_web_url(url: str) -> str:
 class NotGitRepoError(Exception): pass
 
 
-def convert_file_path_to_web_url(abspath: str) -> str:
+def find_web_url(
+    file_path: str,
+    repo_dir: str,
+    repo_url: str,
+    git_branch: str,
+    is_file: bool,
+):
+    file_path: Path = Path(file_path)
+    repo_dir: Path = Path(repo_dir)
+    relative_path = str(file_path.relative_to(repo_dir))
+    if is_file:
+        url = f"{repo_url}/blob/{git_branch}/{relative_path}"
+    else:
+        url = f"{repo_url}/tree/{git_branch}/{relative_path}"
+    return url
+
+
+def convert_file_path_to_web_url(
+    abspath: str,
+) -> str:
     """
     Given a file path on local laptop, find the corresponding web url.
     """
@@ -62,21 +81,20 @@ def convert_file_path_to_web_url(abspath: str) -> str:
 
     config = ConfigParser()
     config.read(Path(dir_git_root, ".git", "config").abspath)
-    remote_url = config['remote "origin"']["url"]
-    repo_url = remote_url.replace(".git", "")
+    remote_origin_url = config['remote "origin"']["url"]
+    repo_web_url = convert_remote_origin_url_to_web_url(remote_origin_url)
 
-    current_branch = Path(dir_git_root, ".git", "HEAD").read_text().strip().split("/")[-1]
-    relative_path = str(path_input.relative_to(dir_git_root))
+    current_branch = Path(dir_git_root, ".git", "HEAD").read_text().strip().replace("ref: refs/heads/", "")
 
-    if "https://github.com" in repo_url:
-        if path_input.is_file():
-            url = f"{repo_url}/blob/{current_branch}/{relative_path}"
-        else:
-            url = f"{repo_url}/tree/{current_branch}/{relative_path}"
-    else:
-        raise NotImplementedError
+    file_web_url = find_web_url(
+        file_path=path_input.abspath,
+        repo_dir=dir_git_root.abspath,
+        repo_url=repo_web_url,
+        git_branch=current_branch,
+        is_file=path_input.is_file(),
+    )
 
-    return url
+    return file_web_url
 
 
 @attr.define

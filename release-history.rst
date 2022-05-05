@@ -4,7 +4,7 @@ Release and Version History
 ==============================================================================
 
 
-0.0.3 (Planned)
+0.0.4 (Planned)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
 
@@ -13,6 +13,13 @@ Release and Version History
 **Bugfixes**
 
 **Miscellaneous**
+
+
+0.0.3 (2022-04-25.1)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Features and Improvements**
+
+- ``gh-view-in-browser`` now support GitHub SAAS, GitHub Enterprise, GitLab SAAS, GitLab Enterprise.
 
 
 0.0.2 (2022-04-25)
