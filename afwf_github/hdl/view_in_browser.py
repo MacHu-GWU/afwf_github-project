@@ -283,8 +283,9 @@ def find_browse_url(
     if "console.aws.amazon.com/codesuite/codecommit" in web_url:
         region, _ = parse_aws_codecommit_url(origin_url)
         browser_url = f"{web_url}/browse/refs/heads/{git_branch}/--/{relative_path}?region={region}"
-    elif origin_url.startswith("https://bitbucket.org") or origin_url.startswith(
-        "git@bitbucket.org"
+    elif (
+        origin_url.startswith("https://") and "@bitbucket.org" in origin_url
+        or origin_url.startswith("git@bitbucket.org")
     ):
         browser_url = f"{web_url}/src/{git_branch}/{relative_path}"
     elif (
