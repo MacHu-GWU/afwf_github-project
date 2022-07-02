@@ -9,6 +9,7 @@ charset-normalizer==2.0.12
 Deprecated==1.2.13
 diskcache==5.4.0
 fuzzywuzzy==0.18.0
+giturlparse==0.10.0
 idna==3.3
 pathlib-mate==1.0.3
 pycodestyle==2.8.0

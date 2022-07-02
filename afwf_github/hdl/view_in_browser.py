@@ -7,63 +7,303 @@ Currently support:
 
 - GitHub
 - GitLab
+- BitBucket
+- AWS CodeCommit
 """
 
-import attr
-import afwf
-
+from typing import Iterable, Tuple
+import enum
+from urllib.parse import urlparse
 from configparser import ConfigParser
+
+import attr
+from attrs_mate import AttrsClass
+import afwf
+from giturlparse import parse
 from pathlib_mate import Path
 
-from urllib.parse import urlparse
+
+@attr.define
+class GitSystem(AttrsClass):
+    name: str = AttrsClass.ib_str()
+    domain: str = AttrsClass.ib_str()
 
 
-def convert_remote_origin_url_to_web_url(url: str) -> str:
+class GitSystemEnum(enum.Enum):
+    unknown = GitSystem(name="unknown", domain="unknown.com")
+    github = GitSystem(name="github", domain="github.com")
+    gitlab = GitSystem(name="gitlab", domain="gitlab.com")
+    bitbucket = GitSystem(name="bitbucket", domain="bitbucket.org")
+    aws_codecommit = GitSystem(
+        name="aws_codecommit", domain="git-codecommit.{region}.amazonaws.com"
+    )
+
+    @classmethod
+    def iter_items(cls) -> Iterable[Tuple[str, "GitSystem"]]:
+        for member in cls:
+            yield member.name, member.value
+
+
+@attr.define
+class Url(AttrsClass):
+    origin_url: str = AttrsClass.ib_str()
+    web_url: str = AttrsClass.ib_str()
+    git_sys: GitSystemEnum = AttrsClass.ib_generic(GitSystemEnum)
+
+
+class UrlEnum(enum.Enum):
+    github_saas_http = Url(
+        origin_url="https://github.com/user-name/repo-name.git",
+        web_url="https://github.com/user-name/repo-name",
+        git_sys=GitSystemEnum.github,
+    )
+    github_saas_token = Url(
+        origin_url="https://my_github_token@github.com/user-name/repo-name.git",
+        web_url="https://github.com/user-name/repo-name",
+        git_sys=GitSystemEnum.github,
+    )
+    github_saas_ssh = Url(
+        origin_url="ssh://git@github.com:user-name/repo-name.git",
+        web_url="https://github.com/user-name/repo-name",
+        git_sys=GitSystemEnum.github,
+    )
+
+    gitlab_saas_http = Url(
+        origin_url="https://gitlab.com/user-name/repo-name.git",
+        web_url="https://gitlab.com/user-name/repo-name",
+        git_sys=GitSystemEnum.gitlab,
+    )
+    gitlab_saas_token = Url(
+        origin_url="https://oauth2:my_gitlab_token@gitlab.com/user-name/repo-name.git",
+        web_url="https://gitlab.com/user-name/repo-name",
+        git_sys=GitSystemEnum.gitlab,
+    )
+    gitlab_saas_ssh = Url(
+        origin_url="ssh://git@gitlab.com:user-name/repo-name.git",
+        web_url="https://gitlab.com/user-name/repo-name",
+        git_sys=GitSystemEnum.gitlab,
+    )
+
+    gitlab_enterprise_http = Url(
+        origin_url="https://my.enterprise.com/user-name/repo-name.git",
+        web_url="https://my.enterprise.com/user-name/repo-name",
+        git_sys=GitSystemEnum.unknown,
+    )
+    gitlab_enterprise_token = Url(
+        origin_url="https://oauth2:my_gitlab_token@my.enterprise.com/user-name/repo-name",
+        web_url="https://my.enterprise.com/user-name/repo-name",
+        git_sys=GitSystemEnum.unknown,
+    )
+    gitlab_enterprise_ssh = Url(
+        origin_url="ssh://git@my.enterprise.com:1234/user-name/repo-name.git",
+        web_url="https://my.enterprise.com/user-name/repo-name",
+        git_sys=GitSystemEnum.unknown,
+    )
+
+    bitbucket_saas_http = Url(
+        origin_url="https://bitbucket.org/user-name/repo-name.git",
+        # example: https://bitbucket.org/astanin/python-tabulate
+        web_url="https://bitbucket.org/user-name/repo-name",
+        git_sys=GitSystemEnum.bitbucket,
+    )
+    bitbucket_saas_ssh = Url(
+        origin_url="git@bitbucket.org:user-name/repo-name.git",
+        web_url="https://bitbucket.org/user-name/repo-name",
+        git_sys=GitSystemEnum.bitbucket,
+    )
+    bitbucket_enterprise_http = Url(
+        origin_url="https://account-name@bitbucket.prod.mycompany.com/user-name/repo-name.git",
+        web_url="https://bitbucket.prod.mycompany.com/projects/user-name/repos/repo-name",
+        git_sys=GitSystemEnum.unknown,
+    )
+    bitbucket_enterprise_ssh = Url(
+        origin_url="ssh://git@bitbucket.prod.mycompany.com:7999/user-name/repo-name.git",
+        web_url="https://bitbucket.prod.mycompany.com/projects/user-name/repos/repo-name",
+        git_sys=GitSystemEnum.bitbucket,
+    )
+
+    aws_codecommit_http = Url(
+        origin_url="https://git-codecommit.us-east-1.amazonaws.com/v1/repos/repo-name",
+        web_url="https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/repo-name",
+        git_sys=GitSystemEnum.aws_codecommit,
+    )
+    aws_codecommit_ssh = Url(
+        origin_url="ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/repo-name",
+        web_url="https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/repo-name",
+        git_sys=GitSystemEnum.aws_codecommit,
+    )
+    aws_codecommit_grc = Url(
+        origin_url="codecommit::us-east-1://repo-name",
+        web_url="https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/repo-name",
+        git_sys=GitSystemEnum.aws_codecommit,
+    )
+
+    @classmethod
+    def iter_items(cls) -> Iterable[Tuple[str, "Url"]]:
+        for member in cls:
+            yield member.name, member.value
+
+    @classmethod
+    def iter_items_by_git_system(
+        cls, git_system: GitSystemEnum
+    ) -> Iterable[Tuple[str, "Url"]]:
+        for member in cls:
+            if member.value.git_sys.value.name == git_system.name:
+                yield member.name, member.value
+
+    @classmethod
+    def iter_github_items(cls) -> Iterable[Tuple[str, "Url"]]:  # pragma: no cover
+        yield from cls.iter_items_by_git_system(GitSystemEnum.github.value)
+
+    @classmethod
+    def iter_gitlab_items(cls) -> Iterable[Tuple[str, "Url"]]:  # pragma: no cover
+        yield from cls.iter_items_by_git_system(GitSystemEnum.gitlab.value)
+
+    @classmethod
+    def iter_bitbucket_items(cls) -> Iterable[Tuple[str, "Url"]]:  # pragma: no cover
+        yield from cls.iter_items_by_git_system(GitSystemEnum.bitbucket.value)
+
+    @classmethod
+    def iter_aws_codecommit_items(cls) -> Iterable[Tuple[str, "Url"]]:
+        yield from cls.iter_items_by_git_system(GitSystemEnum.aws_codecommit.value)
+
+
+def detect_git_system(url: str) -> GitSystemEnum:
+    if url.startswith("https://github.com"):
+        return GitSystemEnum.github
+    elif "@github.com/" in url:
+        return GitSystemEnum.github
+    elif url.startswith("ssh://git@github.com:"):
+        return GitSystemEnum.github
+
+    elif url.startswith("https://gitlab.com"):
+        return GitSystemEnum.gitlab
+    elif "@gitlab.com/" in url:
+        return GitSystemEnum.gitlab
+    elif url.startswith("ssh://git@gitlab.com:"):
+        return GitSystemEnum.gitlab
+
+    elif url.startswith("https://bitbucket.org"):
+        return GitSystemEnum.bitbucket
+    elif url.startswith("git@bitbucket.org:"):
+        return GitSystemEnum.bitbucket
+    elif url.startswith("ssh://git@bitbucket"):
+        return GitSystemEnum.bitbucket
+
+    elif url.startswith("https://git-codecommit"):
+        return GitSystemEnum.aws_codecommit
+    elif url.startswith("ssh://git-codecommit"):
+        return GitSystemEnum.aws_codecommit
+    elif "codecommit::" in url:
+        return GitSystemEnum.aws_codecommit
+
+    else:
+        return GitSystemEnum.unknown
+
+
+def parse_aws_codecommit_url(url: str) -> Tuple[str, str]:
     """
+    :param url:
+    :return: region, repo_name
     """
-    parse_result = urlparse(url)
-    path = parse_result.path
-    if path.startswith("/"):
-        path = path[1:]
-    if path.endswith(".git"):
-        path = path[:-4]
-
-    endpoint = parse_result.netloc.split("@")[-1]
-    if ":" in endpoint:
-        domain, port = endpoint.split(":", 1)
-        endpoint = domain
-        if domain in ["github.com", "gitlab.com"]:
-            path = f"{port}/{path}"
-
-    new_url = f"https://{endpoint}/{path}"
-    return new_url
+    if url.startswith("https://git-codecommit") or url.startswith(
+        "ssh://git-codecommit"
+    ):
+        parse_result = urlparse(url)
+        region = parse_result.netloc.split(".")[1]
+        repo_name = parse_result.path.split("/")[-1]
+    elif url.startswith("codecommit::"):
+        paths = url.split(":")
+        region, repo_name = paths[-2], paths[-1].lstrip("//")
+    else:
+        raise NotImplementedError
+    return region, repo_name
 
 
-class NotGitRepoError(Exception): pass
+class NotGitRepoError(Exception):
+    pass
 
 
-def find_web_url(
+def pretty_print_result(res):  # pragma: no cover
+    """
+    Pretty print giturlparser.parse returns.
+    """
+    print(f"platform = {res.platform!r}")
+    print(f"host = {res.host!r}")
+    print(f"resource = {res.resource!r}")
+    print(f"port = {res.port!r}")
+    print(f"protocol = {res.protocol!r}")
+    print(f"protocols = {res.protocols!r}")
+    print(f"user = {res.user!r}")
+    print(f"owner = {res.owner!r}")
+    print(f"repo = {res.repo!r}")
+    print(f"name = {res.name!r}")
+    print(f"groups = {res.groups!r}")
+    print(f"path = {res.path!r}")
+    print(f"path_raw = {res.path_raw!r}")
+    print(f"branch = {res.branch!r}")
+
+
+def find_web_url(url: str) -> str:
+    # detect git system
+    git_system = detect_git_system(url)
+
+    # handler AWS Code Commit
+    if git_system is GitSystemEnum.aws_codecommit:
+        region, repo_name = parse_aws_codecommit_url(url)
+        web_url = f"https://{region}.console.aws.amazon.com/codesuite/codecommit/repositories/{repo_name}"
+
+    # handler github, gitlab, bitbucket
+    else:
+        res = parse(url)
+        # pretty_print_result(res)
+        if "@" in res.host:
+            host = res.host.split("@")[-1]
+        else:
+            host = res.host
+        if host.startswith("bitbucket.") and (not host.startswith("bitbucket.org")):
+            web_url = f"https://{host}/projects/{res.owner}/repos/{res.name}"
+        else:
+            web_url = f"https://{host}/{res.owner}/{res.name}"
+    # print(web_url)
+    return web_url
+
+
+def find_browse_url(
     file_path: str,
     repo_dir: str,
-    repo_url: str,
+    origin_url: str,
+    web_url: str,
     git_branch: str,
     is_file: bool,
-):
+) -> str:
     file_path: Path = Path(file_path)
     repo_dir: Path = Path(repo_dir)
     relative_path = str(file_path.relative_to(repo_dir))
-    if is_file:
-        url = f"{repo_url}/blob/{git_branch}/{relative_path}"
+    if "console.aws.amazon.com/codesuite/codecommit" in web_url:
+        region, _ = parse_aws_codecommit_url(origin_url)
+        browser_url = f"{web_url}/browse/refs/heads/{git_branch}/--/{relative_path}?region={region}"
+    elif origin_url.startswith("https://bitbucket.org") or origin_url.startswith(
+        "git@bitbucket.org"
+    ):
+        browser_url = f"{web_url}/src/{git_branch}/{relative_path}"
+    elif (
+        origin_url.startswith("https://") and "@bitbucket" in origin_url
+    ) or origin_url.startswith("ssh://git@bitbucket"):
+        browser_url = f"{web_url}/browse/{relative_path}?at=refs/heads/{git_branch}"
     else:
-        url = f"{repo_url}/tree/{git_branch}/{relative_path}"
-    return url
+        if is_file:
+            browser_url = f"{web_url}/blob/{git_branch}/{relative_path}"
+        else:
+            browser_url = f"{web_url}/tree/{git_branch}/{relative_path}"
+    return browser_url
 
 
-def convert_file_path_to_web_url(
+def convert_file_path_to_browse_url(
     abspath: str,
 ) -> str:
     """
-    Given a file path on local laptop, find the corresponding web url.
+    Given a file path on local laptop, find the corresponding browser url.
     """
     path_input: Path = Path(abspath)
 
@@ -82,26 +322,31 @@ def convert_file_path_to_web_url(
     config = ConfigParser()
     config.read(Path(dir_git_root, ".git", "config").abspath)
     remote_origin_url = config['remote "origin"']["url"]
-    repo_web_url = convert_remote_origin_url_to_web_url(remote_origin_url)
+    remote_web_url = find_web_url(remote_origin_url)
 
-    current_branch = Path(dir_git_root, ".git", "HEAD").read_text().strip().replace("ref: refs/heads/", "")
+    current_branch = (
+        Path(dir_git_root, ".git", "HEAD")
+        .read_text()
+        .strip()
+        .replace("ref: refs/heads/", "")
+    )
 
-    file_web_url = find_web_url(
+    browse_url = find_browse_url(
         file_path=path_input.abspath,
         repo_dir=dir_git_root.abspath,
-        repo_url=repo_web_url,
+        origin_url=remote_origin_url,
+        web_url=remote_web_url,
         git_branch=current_branch,
         is_file=path_input.is_file(),
     )
 
-    return file_web_url
+    return browse_url
 
 
 @attr.define
 class Handler(afwf.Handler):
     def lower_level_api(self, query: str) -> afwf.ScriptFilter:
-        """
-        """
+        """ """
         sf = afwf.ScriptFilter()
 
         if not query.strip():
@@ -112,7 +357,7 @@ class Handler(afwf.Handler):
             return sf
 
         try:
-            url = convert_file_path_to_web_url(abspath=query)
+            url = convert_file_path_to_browse_url(abspath=query)
             item = afwf.Item(
                 title="View file in browser",
                 subtitle=f"open {url}",
