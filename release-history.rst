@@ -15,11 +15,11 @@ Release and Version History
 **Miscellaneous**
 
 
-0.0.3 (2022-04-25.1)
+0.0.3 (2022-07-02)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
 
-- ``gh-view-in-browser`` now support GitHub SAAS, GitHub Enterprise, GitLab SAAS, GitLab Enterprise.
+- ``gh-view-in-browser`` now support GitHub SAAS, GitHub Enterprise, GitLab SAAS, GitLab Enterprise, BitBucket SAAS, BitBucket Enterprise, AWS CodeCommit
 
 
 0.0.2 (2022-04-25)
