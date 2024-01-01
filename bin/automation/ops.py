@@ -7,7 +7,7 @@ from .afwf_ops import api as afwf_ops
 path_bin_python = Path.home().joinpath(".pyenv/shims/python3.8")
 path_bin_pip = Path.home().joinpath(".pyenv/shims/pip3.8")
 dir_workflow = Path.home().joinpath(
-    "Documents/Alfred-Setting/Alfred.alfredpreferences/workflows/user.workflow.0339BCA6-FE73-4208-9B64-9DD64F6CB346"
+    "Documents/Alfred-Setting/Alfred.alfredpreferences/workflows/user.workflow.368F0468-0FBF-49DD-BACB-EABAF63D5BB4"
 )
 dir_project_root = Path.dir_here(__file__).parent.parent
 wf_ctx = afwf_ops.WorkflowContext(dir_workflow=dir_workflow)

@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 
+import sys
 from pathlib_mate import Path
 
 dir_python_lib = Path.dir_here(__file__)
 dir_project_root = dir_python_lib.parent
 
 PACKAGE_NAME = dir_python_lib.basename
+
+path_python_interpreter = Path(sys.executable)
 
 # ------------------------------------------------------------------------------
 # Alfred Related
