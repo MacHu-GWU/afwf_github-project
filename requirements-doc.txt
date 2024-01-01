@@ -560,7 +560,7 @@ traitlets==5.14.0 ; python_version >= "3.8" and python_version < "4.0" \
 urllib3==2.1.0 ; python_version >= "3.8" and python_version < "4.0" \
     --hash=sha256:55901e917a5896a349ff771be919f8bd99aff50b79fe58fec595eb37bbc56bb3 \
     --hash=sha256:df7aa8afb0148fa78488e7899b2c59b5f4ffcfa82e6c54ccb9dd37c1d7b52d54
-wcwidth==0.1.12 ; python_version >= "3.8" and python_version < "4.0" \
+wcwidth==0.2.12 ; python_version >= "3.8" and python_version < "4.0" \
     --hash=sha256:f01c104efdf57971bcb756f054dd58ddec5204dd15fa31d6503ea57947d97c02 \
     --hash=sha256:f26ec43d96c8cbfed76a5075dac87680124fa84e0855195a6184da9c187f133c
 webencodings==0.5.1 ; python_version >= "3.8" and python_version < "4.0" \

@@ -201,7 +201,7 @@ keyring==24.3.0 ; python_version >= "3.8" and python_version < "4.0" \
 more-itertools==10.1.0 ; python_version >= "3.8" and python_version < "4.0" \
     --hash=sha256:626c369fa0eb37bac0291bce8259b332fd59ac792fa5497b59837309cd5b114a \
     --hash=sha256:64e0735fcfdc6f3464ea133afe8ea4483b1c5fe3a3d69852e6503b43a0b222e6
-nh3==0.1.15 ; python_version >= "3.8" and python_version < "4.0" \
+nh3==0.2.15 ; python_version >= "3.8" and python_version < "4.0" \
     --hash=sha256:0d02d0ff79dfd8208ed25a39c12cbda092388fff7f1662466e27d97ad011b770 \
     --hash=sha256:3277481293b868b2715907310c7be0f1b9d10491d5adf9fce11756a97e97eddf \
     --hash=sha256:3b803a5875e7234907f7d64777dfde2b93db992376f3d6d7af7f3bc347deb305 \
