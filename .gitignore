@@ -1,9 +1,9 @@
 # User Settings
-afwf_github_venv/
 afwf_github.egg-info/
 afwf_github-*/
 tmp/
 
+.poetry-lock-hash.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -89,6 +89,7 @@ celerybeat-schedule
 .env
 
 # virtualenv
+.venv/
 venv/
 ENV/
 

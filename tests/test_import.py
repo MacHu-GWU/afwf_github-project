@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 
+import os
 import pytest
-from pytest import raises, approx
+import afwf_github
 
 
-def test():
-    import afwf_github
-    pass
+def test_import():
+    _ = afwf_github.wf
 
 
 if __name__ == "__main__":
-    import os
-
     basename = os.path.basename(__file__)
     pytest.main([basename, "-s", "--tb=native"])

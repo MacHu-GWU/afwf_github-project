@@ -2,21 +2,34 @@
 
 from pathlib_mate import Path
 
+dir_python_lib = Path.dir_here(__file__)
+dir_project_root = dir_python_lib.parent
+
+PACKAGE_NAME = dir_python_lib.basename
+
+# ------------------------------------------------------------------------------
+# Alfred Related
+# ------------------------------------------------------------------------------
 dir_home = Path.home()
+dir_project_home = dir_home / ".alfred-afwf" / PACKAGE_NAME
+dir_project_home.mkdir_if_not_exists()
 
-dir_alfred_workflow = Path(dir_home, ".alfred-afwf_github")
-dir_cache = Path(dir_alfred_workflow, ".cache")
-path_default_token = Path(dir_alfred_workflow, "default")
-path_python_interpreter = Path(dir_alfred_workflow, "python_interpreter")
-dir_org_index = Path(dir_alfred_workflow, "org_index")
-dir_repo_index = Path(dir_alfred_workflow, "repo_index")
+dir_cache = dir_project_home / ".cache"
+path_settings_sqlite = dir_project_home / "settings.sqlite"
 
-dir_here = Path.dir_here(__file__)
-dir_project_root = dir_here.parent
-dir_cache_for_test = Path(dir_project_root, "tests", ".cache")
-dir_org_index_for_test = Path(dir_project_root, "tests", "org_index")
-dir_repo_index_for_test = Path(dir_project_root, "tests", "repo_index")
-path_org_json = Path(dir_here, "tests", "orgs.json")
-path_repo_json = Path(dir_here, "tests", "repos.json")
+path_config_json = dir_project_home / "config.json"
 
-dir_alfred_workflow.mkdir_if_not_exists()
+# ------------------------------------------------------------------------------
+# Virtual Environment Related
+# ------------------------------------------------------------------------------
+dir_venv = dir_project_root / ".venv"
+dir_venv_bin = dir_venv / "bin"
+
+# virtualenv executable paths
+bin_pytest = dir_venv_bin / "pytest"
+
+# test related
+dir_htmlcov = dir_project_root / "htmlcov"
+path_cov_index_html = dir_htmlcov / "index.html"
+dir_unit_test = dir_project_root / "tests"
+dir_int_test = dir_project_root / "tests_int"

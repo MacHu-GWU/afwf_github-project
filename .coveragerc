@@ -2,10 +2,10 @@
 # for more info: https://coverage.readthedocs.io/en/latest/config.html
 [run]
 omit =
-    afwf_github/_version.py
+    afwf_github/docs/*
     afwf_github/tests/*
-    afwf_github/hdl/rebuild_index.py
-    afwf_github/hdl/rebuild_index_action.py
+    afwf_github/vendor/*
+    afwf_github/_version.py
 
 [report]
 # Regexes for lines to exclude from consideration
