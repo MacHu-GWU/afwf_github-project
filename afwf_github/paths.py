@@ -17,6 +17,9 @@ dir_project_home.mkdir_if_not_exists()
 dir_cache = dir_project_home / ".cache"
 path_config_json = dir_project_home / "config.json"
 
+dir_search_cache = dir_project_home / ".search-cache"
+dir_repo_index = dir_project_home / ".repo_index"
+
 # ------------------------------------------------------------------------------
 # Virtual Environment Related
 # ------------------------------------------------------------------------------
