@@ -14,17 +14,15 @@ from . import rebuild_index_action
 class Handler(afwf.Handler):
     def main(self) -> afwf.ScriptFilter:
         sf = afwf.ScriptFilter()
-        cmd = f"{path_python_interpreter} main.py 'rebuild_index_action no_query'"
+        cmd = rebuild_index_action.handler.encode_run_script_command(
+            bin_python=path_python_interpreter,
+        )
+        afwf.log_debug_info(f"will run command: {cmd}")
         item = afwf.Item(
             title="Rebuild Index for GitHub Alfred Workflow",
             subtitle="Hit enter to rebuild, it may takes 10 ~ 20 seconds",
-            arg=cmd,
             icon=afwf.Icon.from_image_file(afwf.IconFileEnum.reset)
-        ).terminal_command(
-            rebuild_index_action.handler.encode_run_script_command(
-                bin_python=path_python_interpreter,
-            )
-        )
+        ).run_script(cmd)
         sf.items.append(item)
         return sf
 

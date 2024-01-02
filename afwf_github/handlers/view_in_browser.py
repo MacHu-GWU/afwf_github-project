@@ -33,8 +33,7 @@ class Handler(afwf.Handler):
                 subtitle=f"open {url}",
                 arg=url,
                 icon=afwf.Icon.from_image_file(afwf.IconFileEnum.internet),
-            )
-            item.open_url(url)
+            ).open_url(url)
             sf.items.append(item)
         except NotGitRepoError:
             item = afwf.Item(
