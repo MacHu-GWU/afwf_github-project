@@ -552,7 +552,7 @@
 				<array>
 					<dict>
 						<key>inputstring</key>
-						<string>run_script</string>
+						<string>{var:run_script}</string>
 						<key>matchcasesensitive</key>
 						<false/>
 						<key>matchmode</key>
