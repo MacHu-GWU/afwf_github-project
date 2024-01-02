@@ -86,3 +86,10 @@ Usage
     Copy any absolute path of a file in any git repo, type ``gh-view-in-browser ${path}`` then hit ``Enter``, it should open the repo in browser.
 
     .. image:: https://github.com/MacHu-GWU/afwf_github-project/assets/6800411/e863fac8-e9b0-4301-93c0-d745059e4346
+
+
+Trouble Shooting
+------------------------------------------------------------------------------
+1. ``gh ${query}`` doesn't show any result.
+
+    Check the ``${HOME}/.alfred-afwf/afwf_github/.repo_index`` folder, if the size is too small, it means the Workflow failed to crawl your GitHub repos. Please double check ``${HOME}/.alfred-afwf/afwf_github/config.json`` to make sure you have the correct GitHub Personal Access Token.

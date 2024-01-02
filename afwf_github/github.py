@@ -93,12 +93,20 @@ def download_data(
 
     repos = list()
     for repo in take(user.get_repos(visibility="all"), page_limit):
-        account_name = repo.full_name.split("/")[0]
-        repo_name = repo.name
-        if verbose:
-            print(f"repo_name: {account_name}/{repo_name}")
-        repo_description = repo.description
-        repos.append(dict(acc=account_name, repo=repo_name, desc=repo_description))
+        try:
+            account_name = repo.full_name.split("/")[0]
+            repo_name = repo.name
+            if verbose:
+                print(f"repo_name: {account_name}/{repo_name}")
+            repo_description = repo.description
+            repos.append(dict(acc=account_name, repo=repo_name, desc=repo_description))
+        except GithubException as e:  # pragma: no cover
+            if e.status == 403:
+                pass
+            else:
+                raise e
+        except Exception as e:  # pragma: no cover
+            raise e
 
     user = dict(id=user_id, name=user_name)
     cache.set(
