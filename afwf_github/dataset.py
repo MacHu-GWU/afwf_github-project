@@ -3,9 +3,9 @@
 import sayt.api as sayt
 
 from .paths import dir_repo_index
+from .config import config
 from .cache import cache, search_cache
 from .github import CacheKeyEnum, create_gh_client, download_data, get_repos
-
 
 repo_fields = [
     sayt.TextField(name="acc", stored=True),
@@ -54,7 +54,7 @@ repo_dataset = sayt.DataSet(
     fields=repo_fields,
     cache=search_cache,
     cache_key="repo_dataset",
-    cache_expire=30 * 24 * 60 * 60,  # 30 days
+    cache_expire=config.cache_expire,
     cache_tag="repo_dataset",
     downloader=downloader,
 )
