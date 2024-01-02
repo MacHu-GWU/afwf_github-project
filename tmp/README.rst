@@ -18,7 +18,6 @@
 
 Welcome to ``afwf_github`` Documentation
 ==============================================================================
-
 It is an `Alfred Workflow <https://www.alfredapp.com/workflows/>`_ for GitHub operations. There already is a PHP `alfred-github-workflow <https://github.com/gharlan/alfred-github-workflow>`_ library for this. But the searching is based on Alfred built-in word level filtering, which doesn't allow any typo, fuzzy, and full text search. This project aim to provide the best searching experience powered by the Single Machine, Pure Python version of ElasticSearch - `whoosh <https://pypi.org/project/Whoosh/>`_
 
 

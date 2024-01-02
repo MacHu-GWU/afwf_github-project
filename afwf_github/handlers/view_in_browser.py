@@ -29,15 +29,16 @@ class Handler(afwf.Handler):
         try:
             url = gwu.get_web_url(Path(path))
             item = afwf.Item(
-                title="View file in browser",
+                title=f"View {path} in browser",
                 subtitle=f"open {url}",
                 arg=url,
+                icon=afwf.Icon.from_image_file(afwf.IconFileEnum.internet),
             )
             item.open_url(url)
             sf.items.append(item)
         except NotGitRepoError:
             item = afwf.Item(
-                title="It's not in any git repo directory",
+                title="The file is not in a git repo directory",
                 icon=afwf.Icon.from_image_file(afwf.IconFileEnum.error),
             )
             sf.items.append(item)
