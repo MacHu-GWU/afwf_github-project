@@ -3,7 +3,7 @@
     :target: https://afwf-github.readthedocs.io/en/latest/
     :alt: Documentation Status
 
-.. .. image:: https://github.com/MacHu-GWU/afwf_github-project/workflows/CI/badge.svg
+.. image:: https://github.com/MacHu-GWU/afwf_github-project/workflows/CI/badge.svg
     :target: https://github.com/MacHu-GWU/afwf_github-project/actions?query=workflow:CI
 
 .. .. image:: https://codecov.io/gh/MacHu-GWU/afwf_github-project/branch/main/graph/badge.svg
