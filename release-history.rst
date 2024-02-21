@@ -19,7 +19,11 @@ x.y.z (Planned)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Minor Improvements**
 
-- Removed python-levenstein from requirements.txt, so that it is pure python, no C library needed.
+- Removed fuzzywuzzy python-levenstein from requirements.txt.
+
+**Miscellaneous**
+
+- Since this workflow depends on PyGitHub, it depends on cryptography library, which has C dependencies, so there's no way to make it pure Python.
 
 
 0.1.1 (2024-01-01)
