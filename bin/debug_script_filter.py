@@ -17,10 +17,11 @@ verbose = True
 
 # handler = repo.handler
 
-handler = rebuild_index.handler
-query = ""
+# handler = rebuild_index.handler
+# query = ""
 
-# handler = rebuild_index_action.handler
+handler = rebuild_index_action.handler
+query = "no_query"
 
 res = handler.run_script_command(path_bin_python, dir_workflow, query, verbose=verbose)
 if res is None:

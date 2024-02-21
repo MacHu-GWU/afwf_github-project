@@ -112,17 +112,17 @@ def download_data(
     cache.set(
         CacheKeyEnum.user,
         json.dumps(dict(id=user_id, name=user_name)),
-        expire=config.cache_expire,
+        expire=3600,
     )
     cache.set(
         CacheKeyEnum.accounts,
         json.dumps(accounts),
-        expire=config.cache_expire,
+        expire=3600,
     )
     cache.set(
         CacheKeyEnum.repos,
         json.dumps(repos),
-        expire=config.cache_expire,
+        expire=3600,
     )
 
     return user, accounts, repos

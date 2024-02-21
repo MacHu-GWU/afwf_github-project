@@ -15,6 +15,13 @@ x.y.z (Planned)
 **Miscellaneous**
 
 
+0.1.2 (2024-02-20)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Minor Improvements**
+
+- Removed python-levenstein from requirements.txt, so that it is pure python, no C library needed.
+
+
 0.1.1 (2024-01-01)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
