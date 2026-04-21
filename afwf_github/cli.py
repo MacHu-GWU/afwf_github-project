@@ -6,6 +6,8 @@ import functools
 from pathlib import Path
 from functools import cached_property
 
+import json
+
 import fire
 import afwf.api as afwf
 import git_web_url.api as gwu
@@ -14,6 +16,12 @@ from git_web_url.exc import NotGitRepoError
 from .config import Config
 from .paths import path_enum
 from .dataset import create_repo_dataset
+
+_CONFIG_TEMPLATE = {
+    "pac_token": None,
+    "pac_token_home_secret_toml_path": None,
+    "cache_expire": 2_592_000,
+}
 
 
 def _config_error_sf(config_path: Path) -> afwf.ScriptFilter:
@@ -85,6 +93,31 @@ class Command:
     def default_config(self) -> Config:
         """Load config from the default path (``~/.alfred-afwf/afwf_github/config.json``)."""
         return Config.load(path_enum.path_config_json)
+
+    def edit_config(self) -> None:
+        """Script Filter: open config.json in the default editor.
+
+        Creates a blank template at the default path if the file does not yet
+        exist, then opens it via Alfred's Open File action.
+
+        Alfred Script field (dev):
+            .venv/bin/afwf-github edit-config
+
+        Alfred Script field (prod):
+            ~/.local/bin/uvx --from afwf_github==<ver> afwf-github edit-config
+        """
+        config_path = path_enum.path_config_json
+        if not config_path.exists():
+            config_path.parent.mkdir(parents=True, exist_ok=True)
+            config_path.write_text(json.dumps(_CONFIG_TEMPLATE, indent=4))
+
+        item = afwf.Item(
+            title="Open and edit config.json",
+            subtitle=str(config_path),
+            icon=afwf.Icon.from_image_file(path=afwf.IconFileEnum.file),
+        )
+        item.open_file(str(config_path))
+        afwf.ScriptFilter(items=[item]).send_feedback()
 
     @require_config
     def view_in_browser(self, path: str = "") -> None:
