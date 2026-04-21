@@ -207,9 +207,9 @@ class Command:
                 return
 
             dataset = create_repo_dataset(config=self._config)
-            repos = dataset.search(query=query, limit=50, simple_response=True, verbose=False)
+            result = dataset.search(query=query, limit=50)
 
-            if not repos:
+            if not result.hits:
                 afwf.ScriptFilter(
                     items=[
                         afwf.Item(
@@ -222,7 +222,8 @@ class Command:
                 return
 
             items = []
-            for repo in repos:
+            for hit in result.hits:
+                repo = hit.source
                 account_name = repo["acc"]
                 repo_name = repo["repo"]
                 repo_description = repo.get("desc", "No description")
@@ -231,7 +232,6 @@ class Command:
                     title=f"{account_name}/{repo_name}",
                     subtitle=repo_description,
                     autocomplete=f"{account_name}/{repo_name}",
-                    icon=afwf.Icon.from_image_file(path=afwf.IconFileEnum.git),
                 )
                 item.open_url(url)
                 items.append(item)
