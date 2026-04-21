@@ -1,38 +1,35 @@
 
-.. .. image:: https://readthedocs.org/projects/afwf-github/badge/?version=latest
+.. image:: https://readthedocs.org/projects/afwf-github/badge/?version=latest
     :target: https://afwf-github.readthedocs.io/en/latest/
     :alt: Documentation Status
 
-.. image:: https://github.com/MacHu-GWU/afwf_github-project/workflows/CI/badge.svg
+.. image:: https://github.com/MacHu-GWU/afwf_github-project/actions/workflows/main.yml/badge.svg
     :target: https://github.com/MacHu-GWU/afwf_github-project/actions?query=workflow:CI
 
-.. .. image:: https://codecov.io/gh/MacHu-GWU/afwf_github-project/branch/main/graph/badge.svg
+.. image:: https://codecov.io/gh/MacHu-GWU/afwf_github-project/branch/main/graph/badge.svg
     :target: https://codecov.io/gh/MacHu-GWU/afwf_github-project
 
-.. .. image:: https://img.shields.io/pypi/v/afwf-github.svg
+.. image:: https://img.shields.io/pypi/v/afwf-github.svg
     :target: https://pypi.python.org/pypi/afwf-github
 
-.. .. image:: https://img.shields.io/pypi/l/afwf-github.svg
+.. image:: https://img.shields.io/pypi/l/afwf-github.svg
     :target: https://pypi.python.org/pypi/afwf-github
 
-.. .. image:: https://img.shields.io/pypi/pyversions/afwf-github.svg
+.. image:: https://img.shields.io/pypi/pyversions/afwf-github.svg
     :target: https://pypi.python.org/pypi/afwf-github
 
-.. image:: https://img.shields.io/badge/Release_History!--None.svg?style=social
+.. image:: https://img.shields.io/badge/✍️_Release_History!--None.svg?style=social&logo=github
     :target: https://github.com/MacHu-GWU/afwf_github-project/blob/main/release-history.rst
 
-.. image:: https://img.shields.io/badge/STAR_Me_on_GitHub!--None.svg?style=social
+.. image:: https://img.shields.io/badge/⭐_Star_me_on_GitHub!--None.svg?style=social&logo=github
     :target: https://github.com/MacHu-GWU/afwf_github-project
 
 ------
 
-.. .. image:: https://img.shields.io/badge/Link-Document-blue.svg
-    :target: https://afwf-github.readthedocs.io/en/latest/
-
-.. .. image:: https://img.shields.io/badge/Link-API-blue.svg
+.. image:: https://img.shields.io/badge/Link-API-blue.svg
     :target: https://afwf-github.readthedocs.io/en/latest/py-modindex.html
 
-.. .. image:: https://img.shields.io/badge/Link-Install-blue.svg
+.. image:: https://img.shields.io/badge/Link-Install-blue.svg
     :target: `install`_
 
 .. image:: https://img.shields.io/badge/Link-GitHub-blue.svg
@@ -50,6 +47,9 @@
 
 Welcome to ``afwf_github`` Documentation
 ==============================================================================
+.. image:: https://afwf-github.readthedocs.io/en/latest/_static/afwf_github-logo.png
+    :target: https://afwf-github.readthedocs.io/en/latest/
+
 It is an `Alfred Workflow <https://www.alfredapp.com/workflows/>`_ for GitHub operations. There already is a PHP `alfred-github-workflow <https://github.com/gharlan/alfred-github-workflow>`_ library for this. But the searching is based on Alfred built-in word level filtering, which doesn't allow any typo, fuzzy, and full text search. This project aim to provide the best searching experience powered by the Single Machine, Pure Python version of ElasticSearch - `whoosh <https://pypi.org/project/Whoosh/>`_
 
 

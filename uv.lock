@@ -82,7 +82,7 @@ requires-dist = [
     { name = "pytest-cov", marker = "extra == 'test'", specifier = ">=6.0.0,<7.0.0" },
     { name = "rich", marker = "extra == 'dev'", specifier = ">=13.8.1,<15.0.0" },
     { name = "rstobj", marker = "extra == 'doc'", specifier = "==2.0.0" },
-    { name = "sayt2", specifier = ">=0.1.1,<1.0.0" },
+    { name = "sayt2", specifier = ">=0.1.2,<1.0.0" },
     { name = "sphinx", marker = "extra == 'doc'", specifier = ">=7.4.7,<8.0.0" },
     { name = "sphinx-copybutton", marker = "extra == 'doc'", specifier = ">=0.5.2,<1.0.0" },
     { name = "sphinx-design", marker = "extra == 'doc'", specifier = ">=0.6.1,<1.0.0" },
@@ -1687,16 +1687,16 @@ wheels = [
 
 [[package]]
 name = "sayt2"
-version = "0.1.1"
+version = "0.1.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "diskcache" },
     { name = "pydantic" },
     { name = "tantivy" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/7c/ee/e8dfba545cc6494fe1306a58f90a4360e3d2de906e8f6a1bbe9f50b35a02/sayt2-0.1.1.tar.gz", hash = "sha256:42f008a21d109ecffa51f9c37ac73b6825ecf4dca63d2d22d8930b305731ef50", size = 30821, upload-time = "2026-04-21T04:05:27.403Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/2a/c5/9a15c52ed11477f8401591a286abf1b2a8c1e46194454101b4785c3b82ee/sayt2-0.1.2.tar.gz", hash = "sha256:6b178593784bd7968de84fd6dac99f4998b610851c9b45066ed1fc5e7d77d48f", size = 30859, upload-time = "2026-04-21T20:38:12.936Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/5a/cb/959ea557ef75fe3c39e6d83a9c3508d8f0321b2cd66f0f0080cba6f9a198/sayt2-0.1.1-py3-none-any.whl", hash = "sha256:d99debc8d7f4864b79ddd81ab84a493a9fef0c43ce09939136a27dee5b89f6bd", size = 19570, upload-time = "2026-04-21T04:05:28.811Z" },
+    { url = "https://files.pythonhosted.org/packages/65/23/fb0da0c983d092850e08ff2298227261a8c96ad51a26640de7fbd791743c/sayt2-0.1.2-py3-none-any.whl", hash = "sha256:b41d43e18e4230884cfa2d2b265358062ac4f7de988eee0887ead453cc411655", size = 19600, upload-time = "2026-04-21T20:38:11.931Z" },
 ]
 
 [[package]]
