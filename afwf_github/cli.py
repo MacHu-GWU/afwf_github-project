@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import sys
 import typing as T
 import functools
 from pathlib import Path
@@ -125,6 +126,29 @@ class Command:
 
     @require_config
     def rebuild_index(self) -> None:
+        """Script Filter: show a single item that triggers ``rebuild-index`` on Enter.
+
+        Alfred Script field (dev):
+            .venv/bin/afwf-github show-rebuild-index
+
+        Alfred Script field (prod):
+            ~/.local/bin/uvx --from afwf_github==<ver> afwf-github show-rebuild-index
+        """
+        bin_cli = Path(sys.executable).parent / "afwf-github"
+        cmd = f"{bin_cli} rebuild-index-action"
+        if self.config_file is not None:
+            cmd += f" --config-file {self.config_file!r}"
+
+        item = afwf.Item(
+            title="Rebuild Index for GitHub Alfred Workflow",
+            subtitle="Hit Enter to rebuild — may take 10–20 seconds",
+            icon=afwf.Icon.from_image_file(path=afwf.IconFileEnum.reset),
+        )
+        item.run_script(cmd)
+        afwf.ScriptFilter(items=[item]).send_feedback()
+
+    @require_config
+    def rebuild_index_action(self) -> None:
         """Rebuild the local repo search index by re-fetching data from GitHub.
 
         Called by Alfred's Run Script widget — NOT a Script Filter.
