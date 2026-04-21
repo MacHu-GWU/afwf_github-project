@@ -71,7 +71,7 @@ def fetch_data(
     UserType,
     list[AccountType],
     list[RepoType],
-]:
+]:  # pragma: no cover
     """
     Pull user, accounts, and repos from the GitHub API. No caching.
     Each API call is treated as potentially failing and raises a descriptive
@@ -146,7 +146,7 @@ def download_data(
     UserType,
     list[AccountType],
     list[RepoType],
-]:
+]:  # pragma: no cover
     """
     Pull data from GitHub via :func:`fetch_data` and store results in cache
     under per-username keys (e.g. ``repos@alice``).
