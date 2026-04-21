@@ -41,7 +41,7 @@ class TestRequireConfig:
         sf = captured[0]
         assert len(sf.items) == 1
         item = sf.items[0]
-        assert "Config not found" in item.title
+        assert "Config file not found" in item.title
         assert item.variables.get("open_url") == "y"
 
     def test_valid_config_file_passes_through(self, config_file, monkeypatch):
@@ -53,7 +53,7 @@ class TestRequireConfig:
 
         assert len(captured) == 1
         sf = captured[0]
-        assert "Config not found" not in sf.items[0].title
+        assert "Config file not found" not in sf.items[0].title
 
 
 # ---------------------------------------------------------------------------
@@ -70,7 +70,7 @@ class TestViewInBrowser:
         sf = captured[0]
         assert len(sf.items) == 1
         assert "path" in sf.items[0].title.lower() or "directory" in sf.items[0].title.lower()
-        assert sf.items[0].valid is not False  # prompt item should be selectable
+        assert sf.items[0].valid is not False
 
     def test_whitespace_only_path_shows_prompt(self, config_file, monkeypatch):
         captured = []
@@ -80,7 +80,7 @@ class TestViewInBrowser:
 
         sf = captured[0]
         assert len(sf.items) == 1
-        assert "Config not found" not in sf.items[0].title
+        assert "Config file not found" not in sf.items[0].title
 
     def test_git_repo_path_returns_github_url(self, config_file, monkeypatch):
         captured = []
@@ -92,7 +92,7 @@ class TestViewInBrowser:
         sf = captured[0]
         assert len(sf.items) == 1
         item = sf.items[0]
-        assert "github.com" in item.subtitle
+        assert "github.com" in item.title
         assert item.variables.get("open_url") == "y"
         assert "github.com" in item.variables.get("open_url_arg", "")
 
@@ -105,7 +105,7 @@ class TestViewInBrowser:
 
         sf = captured[0]
         item = sf.items[0]
-        assert "github.com" in item.subtitle
+        assert "github.com" in item.title
         assert "pyproject.toml" in item.variables.get("open_url_arg", "")
 
     def test_non_git_path_returns_error_item(self, config_file, monkeypatch, tmp_path):
@@ -119,7 +119,7 @@ class TestViewInBrowser:
         assert len(sf.items) == 1
         item = sf.items[0]
         assert item.valid is False
-        assert "git" in item.title.lower()
+        assert "git" in item.title.lower() and str(tmp_path) in item.title
 
 
 if __name__ == "__main__":

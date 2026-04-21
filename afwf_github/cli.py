@@ -16,9 +16,9 @@ from .paths import path_enum
 
 def _config_error_sf(config_path: Path) -> afwf.ScriptFilter:
     item = afwf.Item(
-        title=f"Config not found: {config_path}",
+        title=f"Config file not found: {config_path}",
         subtitle="Press Enter to open the setup guide on GitHub",
-        icon=afwf.Icon(path=afwf.IconFileEnum.error),
+        icon=afwf.Icon.from_image_file(path=afwf.IconFileEnum.error),
         valid=True,
     )
     item.open_url("https://github.com/MacHu-GWU/afwf_github-project")
@@ -96,22 +96,22 @@ class Command:
         """
         if not path.strip():
             afwf.ScriptFilter(
-                items=[afwf.Item(title="Paste the full path of a file or directory")]
+                items=[afwf.Item(title="Type or paste the absolute path of a local file or directory")]
             ).send_feedback()
             return
 
         try:
             url = gwu.get_web_url(Path(path))
             item = afwf.Item(
-                title=f"View in browser: {path}",
-                subtitle=url,
+                title=f"Open in browser: {url}",
+                subtitle=f"Local path: {path}",
                 icon=afwf.Icon.from_image_file(path=afwf.IconFileEnum.internet),
             )
             item.open_url(url)
         except NotGitRepoError:
             item = afwf.Item(
-                title="Not inside a git repository",
-                subtitle=path,
+                title=f"Not a git repository path: {path}",
+                subtitle="Only paths inside a git repo with a remote can be opened in browser",
                 icon=afwf.Icon.from_image_file(path=afwf.IconFileEnum.error),
                 valid=False,
             )
