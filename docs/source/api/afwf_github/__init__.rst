@@ -10,7 +10,6 @@ sub packages and modules
 .. toctree::
     :maxdepth: 1
 
-    handlers <handlers/__init__>
     api <api>
     cache <cache>
     cli <cli>
@@ -20,5 +19,4 @@ sub packages and modules
     github <github>
     runtime <runtime>
     type_hint <type_hint>
-    workflow <workflow>
     
