@@ -125,6 +125,53 @@ class Command:
         afwf.ScriptFilter(items=[item]).send_feedback()
 
     @require_config
+    def search_repo(self, query: str = "") -> None:
+        """Search GitHub repositories in the local index.
+
+        Alfred Script field (dev):
+            .venv/bin/afwf-github search-repo --query '{query}'
+
+        Alfred Script field (prod):
+            ~/.local/bin/uvx --from afwf_github==<ver> afwf-github search-repo --query '{query}'
+        """
+        if not query.strip():
+            afwf.ScriptFilter(
+                items=[afwf.Item(title="Type to search GitHub repositories ...")]
+            ).send_feedback()
+            return
+
+        dataset = create_repo_dataset(config=self._config)
+        repos = dataset.search(query=query, limit=50, simple_response=True, verbose=False)
+
+        if not repos:
+            afwf.ScriptFilter(
+                items=[
+                    afwf.Item(
+                        title=f"No repository found for: {query!r}",
+                        icon=afwf.Icon.from_image_file(path=afwf.IconFileEnum.error),
+                        valid=False,
+                    )
+                ]
+            ).send_feedback()
+            return
+
+        items = []
+        for repo in repos:
+            account_name = repo["acc"]
+            repo_name = repo["repo"]
+            repo_description = repo.get("desc", "No description")
+            url = f"https://github.com/{account_name}/{repo_name}"
+            item = afwf.Item(
+                title=f"{account_name}/{repo_name}",
+                subtitle=repo_description,
+                autocomplete=f"{account_name}/{repo_name}",
+                icon=afwf.Icon.from_image_file(path=afwf.IconFileEnum.git),
+            )
+            item.open_url(url)
+            items.append(item)
+        afwf.ScriptFilter(items=items).send_feedback()
+
+    @require_config
     def rebuild_index(self) -> None:
         """Script Filter: show a single item that triggers ``rebuild-index`` on Enter.
 
