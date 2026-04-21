@@ -1,9 +1,8 @@
 # User Settings
 afwf_github.egg-info/
-afwf_github-*/
+docs/source/**/index.md
+.claude/claude-code-message*
 tmp/
-
-.poetry-lock-hash.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -89,7 +88,6 @@ celerybeat-schedule
 .env
 
 # virtualenv
-.venv/
 venv/
 ENV/
 

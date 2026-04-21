@@ -6,6 +6,8 @@ omit =
     afwf_github/tests/*
     afwf_github/vendor/*
     afwf_github/_version.py
+    afwf_github/cli.py
+    afwf_github/paths.py
 
 [report]
 # Regexes for lines to exclude from consideration
