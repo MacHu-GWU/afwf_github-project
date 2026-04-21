@@ -30,6 +30,27 @@ class RepoType(T.TypedDict):
     desc: str
 
 
+def get_username(gh: Github) -> UserType:
+    """Return the id and display name for the authenticated GitHub user.
+
+    This is a single lightweight API call used to determine the per-user
+    data directory before any heavier operations run.
+    ``id`` is the GitHub login (used for directory names and cache keys);
+    ``name`` is the human-readable display name.
+    """
+    try:
+        gh_user = gh.get_user()
+        user_id: str = gh_user.html_url.split("/")[-1]
+        user_name: str = gh_user.name or user_id
+        return UserType(id=user_id, name=user_name)
+    except GithubException as e:
+        raise RuntimeError(
+            f"Failed to get GitHub username (status={e.status}): {e.data}"
+        ) from e
+    except Exception as e:
+        raise RuntimeError(f"Unexpected error getting GitHub username: {e}") from e
+
+
 def take(iterable: T.Iterable, n: int) -> list:
     """
     Return first n items of the iterable as a list.

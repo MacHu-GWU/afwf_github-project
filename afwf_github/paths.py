@@ -62,20 +62,25 @@ class PathEnum:
         return p
 
     @cached_property
-    def dir_cache(self):
-        return self.dir_project_home / ".cache"
-
-    @cached_property
     def path_config_json(self):
         return self.dir_project_home / "config.json"
 
-    @cached_property
-    def dir_search_cache(self):
-        return self.dir_project_home / ".search-cache"
+    def dir_user(self, username: str) -> Path:
+        """Per-user data directory for a specific GitHub account.
 
-    @cached_property
-    def dir_repo_index(self):
-        return self.dir_project_home / ".repo_index"
+        All GitHub API cache and search index for this user live under this
+        directory. Deleting it resets everything for that user cleanly.
+
+        Layout::
+
+            $HOME/.alfred-afwf/afwf_github/{username}/
+              .cache/          # diskcache — GitHub API responses
+              repo/            # sayt2 search dataset (index + query cache)
+        """
+        p = self.dir_project_home / username
+        p.mkdir(parents=True, exist_ok=True)
+        return p
+
 
 
 path_enum = PathEnum()
