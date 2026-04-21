@@ -2,6 +2,7 @@
 afwf_github.egg-info/
 docs/source/**/index.md
 .claude/claude-code-message*
+.claude/projects
 tmp/
 
 # Byte-compiled / optimized / DLL files

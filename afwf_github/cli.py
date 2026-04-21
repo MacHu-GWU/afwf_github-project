@@ -12,6 +12,7 @@ from git_web_url.exc import NotGitRepoError
 
 from .config import Config
 from .paths import path_enum
+from .dataset import create_repo_dataset
 
 
 def _config_error_sf(config_path: Path) -> afwf.ScriptFilter:
@@ -75,9 +76,9 @@ class Command:
     location via ``default_config``.
     """
 
-    def __init__(self, config_file: T.Optional[str] = None):
+    def __init__(self, config_file: str | None = None):
         self.config_file = config_file
-        self._config: T.Optional[Config] = None
+        self._config: Config | None = None
 
     @cached_property
     def default_config(self) -> Config:
@@ -96,7 +97,11 @@ class Command:
         """
         if not path.strip():
             afwf.ScriptFilter(
-                items=[afwf.Item(title="Type or paste the absolute path of a local file or directory")]
+                items=[
+                    afwf.Item(
+                        title="Type or paste the absolute path of a local file or directory"
+                    )
+                ]
             ).send_feedback()
             return
 
@@ -117,6 +122,23 @@ class Command:
             )
 
         afwf.ScriptFilter(items=[item]).send_feedback()
+
+    @require_config
+    def rebuild_index(self) -> None:
+        """Rebuild the local repo search index by re-fetching data from GitHub.
+
+        Called by Alfred's Run Script widget — NOT a Script Filter.
+
+        Alfred Run Script field (dev):
+            .venv/bin/afwf-github rebuild-index
+
+        Alfred Run Script field (prod):
+            ~/.local/bin/uvx --from afwf_github==<ver> afwf-github rebuild-index
+        """
+        create_repo_dataset(config=self._config).search(
+            query="",
+            refresh=True,
+        )
 
 
 def run():

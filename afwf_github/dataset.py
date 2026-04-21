@@ -88,7 +88,7 @@ def create_repo_dataset(config: Config) -> DataSet:  # pragma: no cover
     High-level factory. Derives the GitHub client, username, per-user
     directory, and cache entirely from *config*.
     """
-    gh = Github(config.pac_token)
+    gh = config.gh
     user = get_username(gh)
     username = user["id"]
     user_dir = path_enum.dir_user(username)
