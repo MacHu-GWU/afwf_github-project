@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 
 import typing as T
+from pathlib import Path
 
 from diskcache import Cache
 from github import Github
 from sayt2.api import DataSet, NgramField, TextField
 
+from .type_hint import T_RECORD
 from .paths import path_enum
 from .cache import make_cache
 from .config import Config
@@ -19,57 +21,77 @@ repo_fields = [
 ]
 
 
-def create_repo_dataset(
-    config: Config,
-    cache: Cache | None = None,
-    _downloader: T.Callable[[], list[dict]] | None = None,
+def make_repo_dataset(
+    dir_user: Path,
+    downloader: T.Callable[[], list[T_RECORD]],
+    cache_expire: int,
 ) -> DataSet:
     """
-    Create the repo search DataSet.
+    Low-level DataSet constructor. Pure function — no GitHub or config
+    dependencies. The caller is responsible for providing the per-user
+    directory, a ready-made downloader, and the cache expiry.
+    """
+    return DataSet(
+        dir_root=dir_user,
+        name="repo",
+        fields=repo_fields,
+        downloader=downloader,
+        cache_expire=cache_expire,
+    )
 
-    The GitHub client and username are derived from *config* internally.
-    All data — GitHub API responses (diskcache) and the sayt2 search index —
-    is stored under ``path_enum.dir_user(username)``. Deleting that directory
-    resets everything for that user.
 
-    :param config: App config — provides the PAC token (used to build the
-        GitHub client and resolve the username) and cache expiry.
-    :param cache: diskcache instance for GitHub API responses. Defaults to a
-        cache at ``{dir_user}/.cache/``. Mainly overridden in tests.
-    :param _downloader: Override the default downloader. Intended for testing
-        only — allows injecting a fake data source without hitting GitHub.
+def make_downloader(
+    gh: Github,
+    cache: Cache,
+    username: str,
+    cache_expire: int,
+) -> T.Callable[[], list[T_RECORD]]:  # pragma: no cover
+    """
+    Build the downloader callable used by the repo DataSet.
+
+    Wraps :func:`~afwf_github.github.download_data` with a cache-check:
+    if repos are already stored under the per-user cache key, they are
+    returned directly without hitting the GitHub API.
+    """
+
+    def downloader() -> list[T_RECORD]:
+        cache_key = CacheKeyEnum.repos.of(username)
+        try:
+            repos = get_repos(cache, username) if cache_key in cache else None
+        except FileNotFoundError:
+            # per-user directory was deleted after cache was opened;
+            # fall through to re-download
+            repos = None
+
+        if repos is None:
+            _, _, repos = download_data(
+                gh=gh,
+                cache=cache,
+                username=username,
+                expire=cache_expire,
+            )
+
+        return [
+            {
+                "acc": r["acc"],
+                "repo": r["repo"],
+                "desc": r["desc"],
+            }
+            for r in repos
+        ]
+
+    return downloader
+
+
+def create_repo_dataset(config: Config) -> DataSet:  # pragma: no cover
+    """
+    High-level factory. Derives the GitHub client, username, per-user
+    directory, and cache entirely from *config*.
     """
     gh = Github(config.pac_token)
     user = get_username(gh)
     username = user["id"]
     user_dir = path_enum.dir_user(username)
-
-    if cache is None:
-        cache = make_cache(user_dir / ".cache")
-
-    def _default_downloader() -> list[dict]:
-        cache_key = CacheKeyEnum.repos.of(username)
-        try:
-            repos = get_repos(cache, username) if cache_key in cache else None
-        except FileNotFoundError:
-            # per-user directory was deleted between cache creation and access;
-            # diskcache will recreate it on the next make_cache call
-            repos = None
-
-        if repos is None:
-            _, _, repos = download_data(
-                gh, cache, username, expire=config.cache_expire
-            )
-
-        return [
-            {"acc": r["acc"], "repo": r["repo"], "desc": r["desc"]}
-            for r in repos
-        ]
-
-    return DataSet(
-        dir_root=user_dir,
-        name="repo",
-        fields=repo_fields,
-        downloader=_downloader or _default_downloader,
-        cache_expire=config.cache_expire,
-    )
+    cache = make_cache(user_dir / ".cache")
+    downloader = make_downloader(gh, cache, username, config.cache_expire)
+    return make_repo_dataset(user_dir, downloader, config.cache_expire)
