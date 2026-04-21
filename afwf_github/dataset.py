@@ -71,14 +71,14 @@ def make_downloader(
                 expire=cache_expire,
             )
 
-        return [
-            {
-                "acc": r["acc"],
-                "repo": r["repo"],
-                "desc": r["desc"],
-            }
-            for r in repos
-        ]
+        seen = set()
+        records = []
+        for r in repos:
+            key = (r["acc"], r["repo"])
+            if key not in seen:
+                seen.add(key)
+                records.append({"acc": r["acc"], "repo": r["repo"], "desc": r["desc"]})
+        return records
 
     return downloader
 
