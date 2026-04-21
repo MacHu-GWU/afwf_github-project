@@ -8,15 +8,16 @@ resolution-markers = [
 
 [[package]]
 name = "afwf"
-version = "1.0.1"
+version = "1.0.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "enum-mate" },
     { name = "pydantic" },
+    { name = "typing-extensions", marker = "python_full_version < '3.11'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/55/4f/57a62ac57b460da957d635af653219ef0419673e550587b80cce260b06d7/afwf-1.0.1.tar.gz", hash = "sha256:8897e1c43333e9d8fdbe6bbd63838078f983fc424734e4e898aa5a82a4c529dc", size = 31434, upload-time = "2026-04-07T22:01:52.407Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/0d/ca/fa66c3cef6f4233254034d9c96d6673843ce99407fd46f484f82f8100e1d/afwf-1.0.2.tar.gz", hash = "sha256:5e1a52c3fa22a27ca2efd0097e9b7db6a401d1254f249575e408df6e1c64b502", size = 86180, upload-time = "2026-04-21T19:56:11.84Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/50/a9/6bae93fb5a254484ae0a48fbefdac779a6ff8483b3ff1058d9a48c5602e6/afwf-1.0.1-py3-none-any.whl", hash = "sha256:911674586d03daa07a5fae77742a5db79c710ed614fa051bfdc835726573896a", size = 31595, upload-time = "2026-04-07T22:01:51.377Z" },
+    { url = "https://files.pythonhosted.org/packages/ab/78/2e04f029b0e8602c21f18a7f413e3f9270174ea1bee4ebeac9fac25f81b2/afwf-1.0.2-py3-none-any.whl", hash = "sha256:ab8c5f30f638834d9e47c18370a1e0afb87e001757611e97601eddec0a7895b8", size = 96357, upload-time = "2026-04-21T19:56:10.22Z" },
 ]
 
 [[package]]
@@ -63,7 +64,7 @@ test = [
 
 [package.metadata]
 requires-dist = [
-    { name = "afwf", specifier = ">=1.0.1,<2.0.0" },
+    { name = "afwf", specifier = ">=1.0.2,<2.0.0" },
     { name = "diskcache", specifier = ">=5.6.3,<6.0.0" },
     { name = "docfly", marker = "extra == 'doc'", specifier = "==3.0.3" },
     { name = "fire", specifier = ">=0.6.0,<1.0.0" },
