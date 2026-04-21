@@ -6,7 +6,7 @@ Disk cache for Alfred Workflow.
 
 from diskcache import Cache
 
-from .paths import dir_cache, dir_search_cache
+from .paths import path_enum
 
-cache = Cache(dir_cache.abspath)
-search_cache = Cache(dir_search_cache.abspath)
+cache = Cache(path_enum.dir_cache)
+search_cache = Cache(path_enum.dir_search_cache)

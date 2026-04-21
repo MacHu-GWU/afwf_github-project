@@ -37,6 +37,7 @@ class PathEnum:
     path_venv_bin_pip = dir_venv_bin / "pip"
     path_venv_bin_python = dir_venv_bin / "python"
     path_venv_bin_pytest = dir_venv_bin / "pytest"
+    path_python_interpreter = path_venv_bin_python
 
     # Test
     dir_htmlcov = dir_project_root / "htmlcov"
@@ -52,6 +53,29 @@ class PathEnum:
     # Build
     dir_build = dir_project_root / "build"
     dir_dist = dir_project_root / "dist"
+
+    # Alfred workflow runtime paths
+    @cached_property
+    def dir_project_home(self):
+        p = self.dir_home / ".alfred-afwf" / PACKAGE_NAME
+        p.mkdir(parents=True, exist_ok=True)
+        return p
+
+    @cached_property
+    def dir_cache(self):
+        return self.dir_project_home / ".cache"
+
+    @cached_property
+    def path_config_json(self):
+        return self.dir_project_home / "config.json"
+
+    @cached_property
+    def dir_search_cache(self):
+        return self.dir_project_home / ".search-cache"
+
+    @cached_property
+    def dir_repo_index(self):
+        return self.dir_project_home / ".repo_index"
 
 
 path_enum = PathEnum()

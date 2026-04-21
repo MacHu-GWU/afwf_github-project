@@ -5,7 +5,9 @@ import typing as T
 import attrs
 import afwf.api as afwf
 
-from ..paths import path_config_json
+from ..paths import path_enum
+
+path_config_json = path_enum.path_config_json
 
 
 @attrs.define

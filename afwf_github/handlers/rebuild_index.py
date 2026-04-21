@@ -5,7 +5,9 @@ import typing as T
 import attrs
 import afwf.api as afwf
 
-from ..paths import path_python_interpreter
+from ..paths import path_enum
+
+path_python_interpreter = path_enum.path_python_interpreter
 
 from . import rebuild_index_action
 

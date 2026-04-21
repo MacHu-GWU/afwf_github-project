@@ -2,7 +2,7 @@
 
 import sayt.api as sayt
 
-from .paths import dir_repo_index
+from .paths import path_enum
 from .config import config
 from .cache import cache, search_cache
 from .github import CacheKeyEnum, create_gh_client, download_data, get_repos
@@ -49,7 +49,7 @@ def downloader():
 
 
 repo_dataset = sayt.DataSet(
-    dir_index=dir_repo_index,
+    dir_index=path_enum.dir_repo_index,
     index_name="repo",
     fields=repo_fields,
     cache=search_cache,
