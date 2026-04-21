@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from functools import cached_property
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, model_validator
 from github import Github, Auth
 from home_secret_toml.api import hs
 
@@ -19,6 +19,12 @@ class Config(BaseModel):
     pac_token: str | None = None
     pac_token_home_secret_toml_path: str | None = None
     cache_expire: int = 30 * 24 * 3600
+
+    @model_validator(mode="after")
+    def check_pac_token(self):
+        if self.pac_token is None and self.pac_token_home_secret_toml_path is None:
+            raise ValueError("Must provide pac_token or pac_token_home_secret_toml_path")
+        return self
 
     @classmethod
     def load(cls, path: Path) -> "Config":  # pragma: no cover
