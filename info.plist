@@ -4,6 +4,8 @@
 <dict>
 	<key>bundleid</key>
 	<string>afwf-github</string>
+	<key>category</key>
+	<string>Productivity</string>
 	<key>connections</key>
 	<dict>
 		<key>2502D096-5AD0-4EF2-8360-2CAA5B10DC26</key>
@@ -44,6 +46,16 @@
 			<dict>
 				<key>destinationuid</key>
 				<string>868082BA-BA2D-4DA5-9C77-E6FDBD20C873</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>F8A64573-2CA6-4490-AFA1-3D65A888E226</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -132,6 +144,16 @@
 				<key>vitoclose</key>
 				<false/>
 			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>F8A64573-2CA6-4490-AFA1-3D65A888E226</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
 		</array>
 		<key>F8A64573-2CA6-4490-AFA1-3D65A888E226</key>
 		<array>
@@ -153,6 +175,16 @@
 			<dict>
 				<key>destinationuid</key>
 				<string>93922B66-FA05-46D4-8738-12BCFC730260</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>F8A64573-2CA6-4490-AFA1-3D65A888E226</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -210,7 +242,7 @@
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
-				<string>~/.pyenv/shims/python3.8 main.py 'config {query}'</string>
+				<string>~/.local/bin/uvx --from "afwf_github==1.0.1" afwf-github edit-config</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -332,7 +364,7 @@
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
-				<string>~/.pyenv/shims/python3.8 main.py 'repo {query}'</string>
+				<string>~/.local/bin/uvx --from "afwf_github==1.0.1" afwf-github search-repo --query '{query}'</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -397,7 +429,7 @@
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
-				<integer>1</integer>
+				<integer>2</integer>
 				<key>escaping</key>
 				<integer>68</integer>
 				<key>keyword</key>
@@ -413,7 +445,7 @@
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
-				<string>~/.pyenv/shims/python3.8 main.py 'rebuild_index no_query'</string>
+				<string>~/.local/bin/uvx --from "afwf_github==1.0.1" afwf-github rebuild-index</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -425,7 +457,7 @@
 				<key>type</key>
 				<integer>0</integer>
 				<key>withspace</key>
-				<true/>
+				<false/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
@@ -532,7 +564,7 @@
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
-				<string>~/.pyenv/shims/python3.8 main.py 'view_in_browser {query}'</string>
+				<string>~/.local/bin/uvx --from "afwf_github==1.0.1" afwf-github view-in-browser --path '{query}'</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>

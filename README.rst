@@ -50,12 +50,12 @@ Welcome to ``afwf_github`` Documentation
 .. image:: https://afwf-github.readthedocs.io/en/latest/_static/afwf_github-logo.png
     :target: https://afwf-github.readthedocs.io/en/latest/
 
-It is an `Alfred Workflow <https://www.alfredapp.com/workflows/>`_ for GitHub operations. There already is a PHP `alfred-github-workflow <https://github.com/gharlan/alfred-github-workflow>`_ library for this. But the searching is based on Alfred built-in word level filtering, which doesn't allow any typo, fuzzy, and full text search. This project aim to provide the best searching experience powered by the Single Machine, Pure Python version of ElasticSearch - `whoosh <https://pypi.org/project/Whoosh/>`_
+It is an `Alfred Workflow <https://www.alfredapp.com/workflows/>`_ for GitHub operations. There already is a PHP `alfred-github-workflow <https://github.com/gharlan/alfred-github-workflow>`_ library for this. But the searching is based on Alfred built-in word level filtering, which doesn't allow any typo, fuzzy, and full text search. This project aims to provide the best searching experience powered by `tantivy <https://github.com/quickwit-oss/tantivy>`_ (via `sayt2 <https://github.com/MacHu-GWU/sayt2-project>`_), a Rust-based full-text search engine.
 
 
 Install
 ------------------------------------------------------------------------------
-1. Make sure you have `Alfred 4 + <https://www.alfredapp.com/>`_ installed and bought the `Power Pack <https://www.alfredapp.com/shop/>`_.
+1. Make sure you have `Alfred 5 + <https://www.alfredapp.com/>`_ installed and bought the `Power Pack <https://www.alfredapp.com/shop/>`_.
 2. Go to `Release <https://github.com/MacHu-GWU/afwf_github-project/releases>`_, download the latest release.
 3. Double click the file to install.
 4. Prepare your GitHub Personal Access Token: go to https://github.com/settings/tokens, create a new token, make sure you checked ``repo -> public_repo``, ``admin:org -> read:org``, ``admin:enterprise -> read:enterprise`` so the workflow can get your public repo name and url information. If you want to get your private repo as well, you should check ``repo (Full control of private repositories)``.
@@ -92,4 +92,4 @@ Trouble Shooting
 ------------------------------------------------------------------------------
 1. ``gh ${query}`` doesn't show any result.
 
-    Check the ``${HOME}/.alfred-afwf/afwf_github/.repo_index`` folder, if the size is too small, it means the Workflow failed to crawl your GitHub repos. Please double check ``${HOME}/.alfred-afwf/afwf_github/config.json`` to make sure you have the correct GitHub Personal Access Token.
+    Check the ``${HOME}/.alfred-afwf/afwf_github/`` folder, if there's no folder name equal to your github username(where to store the index), it means the Workflow failed to crawl your GitHub repos. Please double check ``${HOME}/.alfred-afwf/afwf_github/config.json`` to make sure you have the correct GitHub Personal Access Token.
