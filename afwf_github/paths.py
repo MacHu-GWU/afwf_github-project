@@ -65,6 +65,10 @@ class PathEnum:
     def path_config_json(self):
         return self.dir_project_home / "config.json"
 
+    @cached_property
+    def path_error_log(self):
+        return self.dir_project_home / "error.log"
+
     def dir_user(self, username: str) -> Path:
         """Per-user data directory for a specific GitHub account.
 
