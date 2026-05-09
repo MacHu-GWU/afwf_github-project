@@ -4,8 +4,6 @@
 <dict>
 	<key>bundleid</key>
 	<string>afwf-github</string>
-	<key>category</key>
-	<string>Productivity</string>
 	<key>connections</key>
 	<dict>
 		<key>2502D096-5AD0-4EF2-8360-2CAA5B10DC26</key>
@@ -242,7 +240,7 @@
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
-				<string>~/.local/bin/uvx --from "afwf_github==1.0.1" afwf-github edit-config</string>
+				<string>~/.local/bin/uvx --from "afwf_github==1.0.2" afwf-github edit-config</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -364,7 +362,7 @@
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
-				<string>~/.local/bin/uvx --from "afwf_github==1.0.1" afwf-github search-repo --query '{query}'</string>
+				<string>~/.local/bin/uvx --from "afwf_github==1.0.2" afwf-github search-repo --query '{query}'</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -445,7 +443,7 @@
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
-				<string>~/.local/bin/uvx --from "afwf_github==1.0.1" afwf-github rebuild-index</string>
+				<string>~/.local/bin/uvx --from "afwf_github==1.0.2" afwf-github rebuild-index</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -564,7 +562,7 @@
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
-				<string>~/.local/bin/uvx --from "afwf_github==1.0.1" afwf-github view-in-browser --path '{query}'</string>
+				<string>~/.local/bin/uvx --from "afwf_github==1.0.2" afwf-github view-in-browser --path '{query}'</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -736,7 +734,7 @@
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>0.1.1</string>
+	<string>1.0.2</string>
 	<key>webaddress</key>
 	<string>https://github.com/MacHu-GWU/afwf_github-project</string>
 </dict>
