@@ -168,9 +168,10 @@ class Command:
             try:
                 url = gwu.get_web_url(Path(path))
                 item = afwf.Item(
-                    title=f"Open in browser: {url}",
+                    title=f"Open in browser or Copy URL: {url}",
                     subtitle=f"Local path: {path}",
                     icon=afwf.Icon.from_image_file(path=afwf.IconFileEnum.internet),
+                    arg=url,
                 )
                 item.open_url(url)
             except NotGitRepoError:
