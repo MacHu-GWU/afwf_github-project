@@ -15,6 +15,22 @@ x.y.z (Planned)
 **Miscellaneous**
 
 
+1.0.2 (2026-05-09)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Bugfixes**
+
+- Fix a bug that forgot to add url to arg when doing gh-view-in-browser.
+
+
+1.0.1 (2026-04-21)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Features and Improvements**
+
+- Fully rework with AI.
+- migrate from `sayt <https://pypi.org/project/sayt/>`_ to `sayt2 <https://pypi.org/project/sayt2/>`_.
+- Use uv to distribute this Alfred workflow.
+
+
 0.1.2 (2024-02-20)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Minor Improvements**
