@@ -109,9 +109,7 @@ class Command:
         """Load config from the default path (``~/.alfred-afwf/afwf_github/config.json``)."""
         return Config.load(path_enum.path_config_json)
 
-    @afwf.log_error(
-
-    )
+    @afwf.log_error()
     def edit_config(self) -> None:
         """Script Filter: open config.json in the default editor.
 
