@@ -240,7 +240,8 @@
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
-				<string>~/.local/bin/uvx --from "afwf_github==1.0.2" afwf-github edit-config</string>
+				<string>~/.local/bin/uvx --from "afwf_github==1.0.3" afwf-github edit-config
+# ~/Documents/GitHub/afwf_github-project/.venv/bin/afwf-github edit-config</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -362,7 +363,8 @@
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
-				<string>~/.local/bin/uvx --from "afwf_github==1.0.2" afwf-github search-repo --query '{query}'</string>
+				<string>~/.local/bin/uvx --from "afwf_github==1.0.3" afwf-github search-repo --query '{query}'
+# ~/Documents/GitHub/afwf_github-project/.venv/bin/afwf-github search-repo --query '{query}'</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -443,7 +445,8 @@
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
-				<string>~/.local/bin/uvx --from "afwf_github==1.0.2" afwf-github rebuild-index</string>
+				<string>~/.local/bin/uvx --from "afwf_github==1.0.3" afwf-github rebuild-index
+# ~/Documents/GitHub/afwf_github-project/.venv/bin/afwf-github rebuild-index</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
@@ -562,7 +565,8 @@
 				<key>runningsubtext</key>
 				<string>please wait ...</string>
 				<key>script</key>
-				<string>~/.local/bin/uvx --from "afwf_github==1.0.2" afwf-github view-in-browser --path '{query}'</string>
+				<string>~/.local/bin/uvx --from "afwf_github==1.0.3" afwf-github view-in-browser --path '{query}'
+# ~/Documents/GitHub/afwf_github-project/.venv/bin/afwf-github view-in-browser --path '{query}'</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>

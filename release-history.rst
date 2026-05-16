@@ -15,6 +15,17 @@ x.y.z (Planned)
 **Miscellaneous**
 
 
+1.0.3 (2026-05-16)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Bugfixes**
+
+- Fix a bug where ``gh-rebuild-index`` did not fetch new repositories from GitHub. The
+  downloader was returning stale data from diskcache even when a forced rebuild was
+  requested, so newly created repos never appeared without manually deleting the cache
+  directory. The ``rebuild-index-action`` now bypasses the diskcache and always pulls
+  fresh data from the GitHub API.
+
+
 1.0.2 (2026-05-09)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Bugfixes**
