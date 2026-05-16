@@ -49,6 +49,7 @@ def make_downloader(
     cache: Cache,
     username: str,
     cache_expire: int,
+    force: bool = False,
 ) -> T.Callable[[], list[T_RECORD]]:  # pragma: no cover
     """
     Build the downloader callable used by the repo DataSet.
@@ -56,16 +57,23 @@ def make_downloader(
     Wraps :func:`~afwf_github.github.download_data` with a cache-check:
     if repos are already stored under the per-user cache key, they are
     returned directly without hitting the GitHub API.
+
+    When *force* is ``True`` the diskcache check is skipped and fresh data
+    is always fetched from GitHub.  Pass ``force=True`` when rebuilding the
+    index on demand so the downloader is not fooled by a still-valid
+    diskcache entry that predates newly created repositories.
     """
 
     def downloader() -> list[T_RECORD]:
-        cache_key = CacheKeyEnum.repos.of(username)
-        try:
-            repos = get_repos(cache, username) if cache_key in cache else None
-        except FileNotFoundError:
-            # per-user directory was deleted after cache was opened;
-            # fall through to re-download
-            repos = None
+        repos = None
+        if not force:
+            cache_key = CacheKeyEnum.repos.of(username)
+            try:
+                repos = get_repos(cache, username) if cache_key in cache else None
+            except FileNotFoundError:
+                # per-user directory was deleted after cache was opened;
+                # fall through to re-download
+                repos = None
 
         if repos is None:
             _, _, repos = download_data(
@@ -87,15 +95,19 @@ def make_downloader(
     return downloader
 
 
-def create_repo_dataset(config: Config) -> DataSet:  # pragma: no cover
+def create_repo_dataset(config: Config, force: bool = False) -> DataSet:  # pragma: no cover
     """
     High-level factory. Derives the GitHub client, username, per-user
     directory, and cache entirely from *config*.
+
+    Set *force* to ``True`` to bypass the diskcache and always pull fresh
+    data from GitHub when the downloader is invoked (i.e. when the caller
+    subsequently calls ``dataset.search(refresh=True)``).
     """
     gh = config.gh
     user = get_username(gh)
     username = user["id"]
     user_dir = path_enum.dir_user(username)
     cache = make_cache(user_dir / ".cache")
-    downloader = make_downloader(gh, cache, username, config.cache_expire)
+    downloader = make_downloader(gh, cache, username, config.cache_expire, force=force)
     return make_repo_dataset(user_dir, downloader, config.cache_expire)

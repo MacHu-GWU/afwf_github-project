@@ -284,7 +284,7 @@ class Command:
         Alfred Run Script field (prod):
             ~/.local/bin/uvx --from afwf_github==<ver> afwf-github rebuild-index-action
         """
-        create_repo_dataset(config=self._config).search(
+        create_repo_dataset(config=self._config, force=True).search(
             query="",
             refresh=True,
         )
