@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import re
 import sys
 import json
 import typing as T
@@ -206,7 +207,9 @@ class Command:
                 return
 
             dataset = create_repo_dataset(config=self._config)
-            result = dataset.search(query=query, limit=50)
+            tokens = re.split(r"[^a-zA-Z0-9]+", query.strip())
+            normalized_query = " ".join(t for t in tokens if t)
+            result = dataset.search(query=normalized_query, limit=50)
 
             if not result.hits:
                 afwf.ScriptFilter(
