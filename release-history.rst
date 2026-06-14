@@ -15,6 +15,16 @@ x.y.z (Planned)
 **Miscellaneous**
 
 
+1.0.4 (2026-06-14)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Minor Improvements**
+
+- Normalize the search query in ``gh-search-repo`` by splitting on any non-alphanumeric
+  character (hyphens, underscores, dots, spaces, etc.) before querying the index. This
+  means typing ``abc-efg-def`` now matches repositories containing all three tokens
+  individually instead of treating the entire string as one term.
+
+
 1.0.3 (2026-05-16)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Bugfixes**
